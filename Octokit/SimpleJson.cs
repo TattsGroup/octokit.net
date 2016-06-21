@@ -64,6 +64,7 @@ using System.Text;
 using Octokit.Reflection;
 #if !SIMPLE_JSON_NO_LINQ_EXPRESSION
 using System.Linq.Expressions;
+using System.IO;
 #endif
 #if SIMPLE_JSON_DYNAMIC
 using System.Dynamic;
@@ -1360,6 +1361,8 @@ namespace Octokit
             return TrySerializeKnownTypes(input, out output) || TrySerializeUnknownTypes(input, out output);
         }
 
+        static List<string> cache = new List<string>();
+
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public virtual object DeserializeObject(object value, Type type)
         {
@@ -1479,6 +1482,19 @@ namespace Octokit
                                     setter.Value.Value(obj, jsonValue);
                                 }
                             }
+                            
+                            foreach (var availableKey in jsonObject.Keys)
+                            {
+                                if (!SetCache[type].Keys.Contains(availableKey))
+                                {
+                                    var s = type.ToString() + "." + availableKey;
+                                    if (!cache.Contains(s))
+                                    {
+                                        WriteDebugLog("No field available in Model {0} for key {1}", type.ToString(), availableKey);
+                                        cache.Add(s);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1512,6 +1528,29 @@ namespace Octokit
             if (ReflectionUtils.IsNullableType(type))
                 return ReflectionUtils.ToNullableType(obj, type);
             return obj;
+        }
+
+        private void WriteDebugLog(string format, params object[] arg)
+        {
+            var logFilePath = "C:\\temp\\octokit-SimpleJson-UnmatchedFields.txt";
+
+            int attempt = 1;
+            while (attempt <= 50)
+            {
+                try
+                {
+                    using (var writer = File.AppendText(logFilePath))
+                    {
+                        writer.WriteLine(format, arg);
+                    }
+                    break;
+                }
+                catch
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+                attempt++;
+            }
         }
 
         protected virtual object SerializeEnum(Enum p)
