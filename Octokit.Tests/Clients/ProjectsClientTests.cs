@@ -31,7 +31,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<Project>(
                     Arg.Is<Uri>(u => u.ToString() == "repos/owner/repo/projects"),
                     Args.EmptyDictionary,
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -46,7 +46,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<Project>(
                     Arg.Is<Uri>(u => u.ToString() == "repos/owner/repo/projects"),
                     Arg.Is<Dictionary<string, string>>(d => d.ContainsKey("state")),
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -61,7 +61,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<Project>(
                     Arg.Is<Uri>(u => u.ToString() == "repositories/1/projects"),
                     Args.EmptyDictionary,
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -76,7 +76,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<Project>(
                     Arg.Is<Uri>(u => u.ToString() == "repositories/1/projects"),
                     Arg.Is<Dictionary<string, string>>(d => d.ContainsKey("state")),
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -126,7 +126,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<Project>(
                     Arg.Is<Uri>(u => u.ToString() == "orgs/org/projects"),
                     Args.EmptyDictionary,
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -141,7 +141,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<Project>(
                     Arg.Is<Uri>(u => u.ToString() == "orgs/org/projects"),
                     Arg.Is<Dictionary<string, string>>(d => d.ContainsKey("state")),
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -178,7 +178,7 @@ namespace Octokit.Tests.Clients
 
                 await client.Get(1);
 
-                connection.Received().Get<Project>(Arg.Is<Uri>(u => u.ToString() == "projects/1"), null, "application/vnd.github.inertia-preview+json");
+                connection.Received().Get<Project>(Arg.Is<Uri>(u => u.ToString() == "projects/1"), null, "application/vnd.github.inertia-preview.iso8601+json");
             }
         }
 
@@ -193,7 +193,7 @@ namespace Octokit.Tests.Clients
 
                 await client.CreateForRepository(1, newProject);
 
-                connection.Received().Post<Project>(Arg.Is<Uri>(u => u.ToString() == "repositories/1/projects"), newProject, "application/vnd.github.inertia-preview+json");
+                connection.Received().Post<Project>(Arg.Is<Uri>(u => u.ToString() == "repositories/1/projects"), newProject, "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]
@@ -216,7 +216,7 @@ namespace Octokit.Tests.Clients
 
                 await client.CreateForOrganization("org", newProject);
 
-                connection.Received().Post<Project>(Arg.Is<Uri>(u => u.ToString() == "orgs/org/projects"), newProject, "application/vnd.github.inertia-preview+json");
+                connection.Received().Post<Project>(Arg.Is<Uri>(u => u.ToString() == "orgs/org/projects"), newProject, "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]
@@ -242,7 +242,7 @@ namespace Octokit.Tests.Clients
 
                 await client.Update(1, updateProject);
 
-                connection.Received().Patch<Project>(Arg.Is<Uri>(u => u.ToString() == "projects/1"), updateProject, "application/vnd.github.inertia-preview+json");
+                connection.Received().Patch<Project>(Arg.Is<Uri>(u => u.ToString() == "projects/1"), updateProject, "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]
@@ -264,7 +264,7 @@ namespace Octokit.Tests.Clients
 
                 await client.Delete(1);
 
-                connection.Connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "projects/1"), Arg.Any<object>(), "application/vnd.github.inertia-preview+json");
+                connection.Connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "projects/1"), Arg.Any<object>(), "application/vnd.github.inertia-preview.iso8601+json");
             }
         }
     }

@@ -34,7 +34,7 @@ namespace Octokit.Tests.Reactive
                 connection.Received().Get<List<ProjectCard>>(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/1/cards"),
                     Args.EmptyDictionary,
-                    "application/vnd.github.inertia-preview+json");
+                    "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]

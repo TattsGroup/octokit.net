@@ -29,7 +29,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().GetAll<ProjectCard>(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/1/cards"),
                     Args.EmptyDictionary,
-                    "application/vnd.github.inertia-preview+json",
+                    "application/vnd.github.inertia-preview.iso8601+json",
                     Args.ApiOptions);
             }
 
@@ -55,7 +55,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().Get<ProjectCard>(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/cards/1"),
                     null,
-                    "application/vnd.github.inertia-preview+json");
+                    "application/vnd.github.inertia-preview.iso8601+json");
             }
         }
 
@@ -73,7 +73,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().Post<ProjectCard>(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/1/cards"),
                     newCard,
-                    "application/vnd.github.inertia-preview+json");
+                    "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]
@@ -100,7 +100,7 @@ namespace Octokit.Tests.Clients
                 connection.Received().Patch<ProjectCard>(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/cards/1"),
                     updateCard,
-                    "application/vnd.github.inertia-preview+json");
+                    "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]
@@ -126,7 +126,7 @@ namespace Octokit.Tests.Clients
                 connection.Connection.Received().Delete(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/cards/1"),
                     Arg.Any<object>(),
-                    "application/vnd.github.inertia-preview+json");
+                    "application/vnd.github.inertia-preview.iso8601+json");
             }
         }
 
@@ -144,7 +144,7 @@ namespace Octokit.Tests.Clients
                 connection.Connection.Received().Post(
                     Arg.Is<Uri>(u => u.ToString() == "projects/columns/cards/1/moves"),
                     position,
-                    "application/vnd.github.inertia-preview+json");
+                    "application/vnd.github.inertia-preview.iso8601+json");
             }
 
             [Fact]
